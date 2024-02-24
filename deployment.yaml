@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+  labels:
+    app: myapp
+spec:
+  replicas: 3 # Number of replicas (pods) to run
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: cli-resume-container
+          image: asixl/cli-resume:0.0.2 # Docker image name
+          ports:
+            - containerPort: 8080 # Port your application listens on
+
