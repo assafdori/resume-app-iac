@@ -1,4 +1,4 @@
-# Infrastracture as Code 💻
+# Infrastracture as Code 🏗️
  
 #### 25/02/2024 
 
