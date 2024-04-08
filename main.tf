@@ -1,6 +1,6 @@
 # Specify the provider and region
 provider "aws" {
-  region = "your-aws-region"
+  region = "us-east-1"
 }
 
 # Create VPC
@@ -15,7 +15,7 @@ resource "aws_subnet" "public_subnet" {
   vpc_id               = aws_vpc.my_vpc.id
   cidr_block           = "10.0.1.0/24"
   map_public_ip_on_launch = true
-  availability_zone    = var.your_availability_zone
+  availability_zone    = "us-east-1b"
 }
 
 # Create internet gateway
@@ -56,7 +56,7 @@ resource "aws_security_group" "my_security_group" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = [var.your_ip_address] # Limit SSH access to your IP address
+    cidr_blocks = ["0.0.0.0/0"] # Limit SSH access to your IP address
   }
 
   egress {
@@ -67,73 +67,21 @@ resource "aws_security_group" "my_security_group" {
   }
 }
 
-# Create IAM role for ECS task execution
-resource "aws_iam_role" "ecs_task_execution_role" {
-  name = "ecs-task-execution-role"
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "ecs-tasks.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-EOF
+# Create EC2 instance
+resource "aws_instance" "my_ec2_instance" {
+  ami           = "ami-051f8a213df8bc089" # Specify your AMI ID
+  instance_type = "t2.micro"
+  subnet_id     = aws_subnet.public_subnet.id
+  security_groups = [aws_security_group.my_security_group.id]
+
+  # You can customize the EC2 instance as per your requirements
+  # For example:
+  # key_name      = "my-keypair"
+  # iam_instance_profile = "my-ec2-role"
 }
 
-# Attach IAM policy for ECS task execution
-resource "aws_iam_policy_attachment" "ecs_task_execution_attachment" {
-  name       = "ecs-task-execution-policy-attachment"
-  roles      = [aws_iam_role.ecs_task_execution_role.name]
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
-}
-
-# Create ECR repository
-resource "aws_ecr_repository" "my_ecr_repo" {
-  name = "my-ecr-repo"
-}
-
-# Create ECS cluster
-resource "aws_ecs_cluster" "my_ecs_cluster" {
-  name = "my-ecs-cluster"
-}
-
-# Create ECS task definition
-resource "aws_ecs_task_definition" "my_task_definition" {
-  family                   = "my-task"
-  cpu                      = 256 # CPU units (0.25 vCPU)
-  memory                   = 512 # Memory in MiB
-  network_mode             = "awsvpc"
-  requires_compatibilities = ["FARGATE"]
-
-  container_definitions = jsonencode([
-    {
-      name      = "my-container"
-      image     = "your-ecr-repo-url:latest" # URL of your Docker image in ECR
-      cpu       = 256
-      memory    = 512
-      essential = true
-    }
-  ])
-}
-
-# Create ECS service
-resource "aws_ecs_service" "my_ecs_service" {
-  name            = "my-ecs-service"
-  cluster         = aws_ecs_cluster.my_ecs_cluster.id
-  task_definition = aws_ecs_task_definition.my_task_definition.arn
-  desired_count   = 1
-  launch_type     = "FARGATE"
-
-  network_configuration {
-    subnets          = [aws_subnet.public_subnet.id]
-    security_groups  = [aws_security_group.my_security_group.id]
-    assign_public_ip = true
-  }
+# Use existing ECR repository
+data "aws_ecr_repository" "my_ecr_repo" {
+  name = "cli-resume" # Specify the name of your ECR repository
 }
 
