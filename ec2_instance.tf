@@ -9,7 +9,3 @@ resource "aws_instance" "resume-app-ec2-instance" {
     Name = "resume-app-server"
   }
 }
-
-output "ec2_instance_ip" {
-  value = aws_instance.resume-app-ec2-instance.public_ip
-}
