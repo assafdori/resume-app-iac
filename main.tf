@@ -1,13 +1,3 @@
-# Import other Terraform configuration files
-terraform {
-  required_version = ">= 0.13"
-}
-
-# Provider configuration
-provider "aws" {
-  region = "us-east-1"
-}
-
 # Calling for Terraform configurations from different .tf files ##
 
 # VPC
@@ -52,5 +42,7 @@ module "ecr_repository" {
 
 # DNS Configuration
 module "dns" {
-  source = "./dns.tf"
+  source = "./dns"
+  domain_name = var.domain_name
+  vps_ip_address = var.vps_ip_address
 }
