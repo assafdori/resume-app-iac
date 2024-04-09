@@ -3,11 +3,6 @@ variable "domain_name" {
   type        = string
 }
 
-variable "vps_ip_address" {
-  description = "The IP address of the VPS"
-  type        = string
-}
-
 provider "aws" {
   region = "us-east-1"  # Replace with your desired AWS region
 }
