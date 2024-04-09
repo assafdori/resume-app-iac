@@ -21,7 +21,7 @@ resource "aws_route53_record" "www" {
   name    = "www.${var.domain_name}"
   type    = "A"
   ttl     = "300"
-  records = [var.vps_ip_address]
+  records = [aws_instance.resume-app-ec2-instance.public_ip]
 }
 
 resource "aws_route53_record" "root" {
@@ -29,7 +29,7 @@ resource "aws_route53_record" "root" {
   name    = var.domain_name
   type    = "A"
   ttl     = "300"
-  records = [var.vps_ip_address]
+  records = [aws_instance.resume-app-ec2-instance.public_ip]
 }
 
 output "dns_records" {
