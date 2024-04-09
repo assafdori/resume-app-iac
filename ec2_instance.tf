@@ -6,6 +6,6 @@ resource "aws_instance" "resume-app-ec2-instance" {
   key_name = "ssh-key-resume-server"
 
   tags = {
-    Name = "resume-app-server"
+    Name = var.instance_name
   }
 }

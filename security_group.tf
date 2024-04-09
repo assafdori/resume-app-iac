@@ -1,33 +1,26 @@
 resource "aws_security_group" "resume-app-security-group" {
-  name        = "resume-app-security-group"
-  description = "Allow HTTP and SSH traffic for the resume-app application"
+  name        = var.security_group_name
+  description = "Allow HTTP and HTTPS traffic for inbound and outbound connections to the web app."
   vpc_id      = aws_vpc.resume-app-vpc.id
 
   ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] # Allows all IPs to HTTP
+    cidr_blocks = var.cidr_ingress_80
   }
 
 ingress {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] # Allows all IPs to HTTP
-  }
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] # Allows all IPs to SSH
+    cidr_blocks = var.cidr_ingress_443
   }
 
   egress {
     from_port   = 0
     to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    protocol    = var.cidr_egress_protocol
+    cidr_blocks = var.cidr_egress_ips
   }
 }
