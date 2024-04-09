@@ -1,8 +1,3 @@
-variable "domain_name" {
-  description = "The domain name for which DNS records will be created"
-  type        = string
-}
-
 provider "aws" {
   region = "us-east-1"  # Replace with your desired AWS region
 }
