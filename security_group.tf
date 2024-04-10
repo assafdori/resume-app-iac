@@ -17,6 +17,13 @@ ingress {
     cidr_blocks = var.cidr_ingress_443
   }
 
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = var.cidr_ingress_22
+  }
+
   egress {
     from_port   = 0
     to_port     = 0

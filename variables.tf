@@ -29,6 +29,11 @@ variable "cidr_ingress_443" {
   default = ["0.0.0.0/0"]
 }
 
+variable "cidr_ingress_22" {
+  description = "Defines which IPs are allowed to access via SSH 22."
+  default = ["0.0.0.0/0"]
+}
+
 variable "cidr_egress_ips" {
   description = "Defines to which IPs outbound traffic is allowed."
   default = ["0.0.0.0/0"]
