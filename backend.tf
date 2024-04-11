@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket  = "terraform-state-bucket"
+    bucket  = "terraform-resume-app-state-remote"
     key     = "terraform.tfstate"
     region  = "us-east-1"
     encrypt = true
