@@ -10,7 +10,7 @@ resource "aws_security_group" "resume-app-security-group" {
     cidr_blocks = var.cidr_ingress_80
   }
 
-ingress {
+  ingress {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
