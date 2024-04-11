@@ -43,3 +43,8 @@ variable "cidr_egress_protocol" {
   description = "Defines which protocols are allowed for outbound traffic."
   default     = "-1"
 }
+
+variable "aws_ami" {
+  description = "Defines which AMI is used for the host server of web application."
+  default     = "ami-07b3a3a3ddede3183"
+}
