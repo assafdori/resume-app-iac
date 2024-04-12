@@ -16,8 +16,8 @@ client = boto3.client('secretsmanager', region_name=region_name)
 # Retrieve Porkbun API credentials from AWS Secret Manager
 response = client.get_secret_value(SecretId=secret_name)
 secret_dict = json.loads(response['SecretString'])
-pork_api_key = secret_dict['porkbun_api_key']
-pork_api_secret = secret_dict['porkbun_api_secret']
+pork_api_key = secret_dict['pork_api_key']
+pork_api_secret = secret_dict['pork_api_secret']
 
 # Initialize a Route 53 client
 route53_client = boto3.client('route53')
