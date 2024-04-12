@@ -7,6 +7,7 @@ This repository holds all infrastracture related Terraform code that plans and b
 - Backend configuration that saves the state file safely within an S3 bucket.
 - Variables configuration file to allow easy modification of infrastracture properties.
 - Outputting of infrastracture properties for easy debugging and reusability in other Terraform modules.
+- Included is a custom made Python script that utilizes REST API & boto3 to extract infrastracture information via AWS CLI and update name-servers on Porkbun.
 
 ### Provisioned Infrastracture 🏰
 - DNS records, including name-servers configuration against external domain providers.
@@ -21,7 +22,7 @@ This repository holds all infrastracture related Terraform code that plans and b
 #### Progression and Future Ideas 💡
 
  - This repository will eventually contain both Terraform and Ansible configuration files. Currently working on getting the whole infra set up via Terraform, will move on to Ansible after.
-  - Add prod.tfvars, dev.tfvars etc that will ovverride the main variables.tf file.
+ - Add prod.tfvars, dev.tfvars etc that will ovverride the main variables.tf file.
  - ~~Transfer all .tf files to use vars from a base variables.tf file.~~
  - ~~Add backend.tf file that will define where the state.tf file will be saved (s3)~~
 
