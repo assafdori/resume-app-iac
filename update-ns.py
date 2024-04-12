@@ -33,7 +33,7 @@ else:
 
 # Retrieve name servers from Route 53
 response = route53_client.get_hosted_zone(Id=hosted_zone_id)
-name_servers = response['DelegationSet']['NameServers'].split(',')  # Split string into a list
+name_servers = response['DelegationSet']['NameServers']
 
 # Update DNS records on Porkbun
 headers = {
