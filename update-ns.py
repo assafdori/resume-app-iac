@@ -35,6 +35,9 @@ else:
 response = route53_client.get_hosted_zone(Id=hosted_zone_id)
 name_servers = response['DelegationSet']['NameServers']
 
+# Print the name servers before splitting
+print("Name servers before splitting:", name_servers)
+
 # Update DNS records on Porkbun
 headers = {
     "Content-Type": "application/json",
