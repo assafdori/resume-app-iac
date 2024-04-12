@@ -1,7 +1,7 @@
 import requests
 import json
-import base64
 import boto3
+import base64
 
 # AWS Secret Manager details
 secret_name = "aws-pork-dns-ns"
@@ -38,22 +38,26 @@ name_servers = response['DelegationSet']['NameServers']
 # Check if name servers are already a list
 if isinstance(name_servers, str):
     name_servers = name_servers.split(',')
-elif isinstance(name_servers, list):
-    # Name servers are already in list format, no need for splitting
-    pass
-else:
+elif not isinstance(name_servers, list):
     raise TypeError("Unexpected data type for name servers")
 
+# Construct the request body according to the Porkbun API documentation
+request_body = {
+    "apikey": pork_api_key,
+    "secretapikey": pork_api_secret,
+    "ns": name_servers
+}
+
 # Update DNS records on Porkbun
-headers = {
-    "Content-Type": "application/json",
-    "Authorization": f"Basic {base64.b64encode(f'{pork_api_key}:{pork_api_secret}'.encode()).decode()}"
-}
-payload = {
-    "domain": domain_name,
-    "content": ",".join(name_servers),
-    "type": "NS",
-    "ttl": 3600  # Adjust TTL as needed
-}
-response = requests.post(f"https://porkbun.com/api/json/v3/domain/updateNs/{domain_name}", headers=headers, data=json.dumps(payload))
-print(response.json())
+url = f"https://porkbun.com/api/json/v3/domain/updateNs/{domain_name}"
+headers = {"Content-Type": "application/json"}
+response = requests.post(url, headers=headers, json=request_body)
+
+# Check the response
+if response.status_code == 200:
+    print("DNS records updated successfully.")
+    print(response.json())
+else:
+    print("Failed to update DNS records.")
+    print("Status Code:", response.status_code)
+    print("Response:", response.json())
