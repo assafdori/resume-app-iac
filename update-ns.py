@@ -35,8 +35,14 @@ else:
 response = route53_client.get_hosted_zone(Id=hosted_zone_id)
 name_servers = response['DelegationSet']['NameServers']
 
-# Print the name servers before splitting
-print("Name servers before splitting:", name_servers)
+# Check if name servers are already a list
+if isinstance(name_servers, str):
+    name_servers = name_servers.split(',')
+elif isinstance(name_servers, list):
+    # Name servers are already in list format, no need for splitting
+    pass
+else:
+    raise TypeError("Unexpected data type for name servers")
 
 # Update DNS records on Porkbun
 headers = {
