@@ -68,7 +68,7 @@ url = f"https://porkbun.com/api/json/v3/dns/create/{domain_name}"
 headers = {"Content-Type": "application/json"}
 
 # Remove domain name from the record name
-subdomain_name = dns_records[0]['name'].replace(f'.{domain_name}', '') # + '.' # ADD IF DOMAIN ISN'T AUTHENTICATED
+subdomain_name = dns_records[0]['name'].replace(f'.{domain_name}', '') + '.' # ADD/REMOVE, THIS CREATES THE '.' AT THE END OF VALUE
 request_body = {
     "apikey": pork_api_key,
     "secretapikey": pork_api_secret,
