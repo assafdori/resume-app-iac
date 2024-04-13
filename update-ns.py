@@ -62,18 +62,22 @@ for option in dns_validation_options:
         'content': option['ResourceRecord']['Value'],
         'ttl': '600'
     })
-print("dns_records:", dns_records)
-
-# Construct the request body to create DNS records according to the Porkbun API documentation
-request_body = {
-    "apikey": pork_api_key,
-    "secretapikey": pork_api_secret,
-    "records": dns_records  # Include DNS validation records
-}
 
 # Create DNS records on Porkbun
 url = f"https://porkbun.com/api/json/v3/dns/create/{domain_name}"
 headers = {"Content-Type": "application/json"}
+
+# Remove domain name from the record name
+subdomain_name = dns_records[0]['name'].replace(f'.{domain_name}', '') # + '.' # ADD IF DOMAIN ISN'T AUTHENTICATED
+request_body = {
+    "apikey": pork_api_key,
+    "secretapikey": pork_api_secret,
+    "name": subdomain_name,  # Use only the subdomain without the domain name, according to Porkbun.
+    "type": dns_records[0]['type'],
+    "content": dns_records[0]['content'],
+    "ttl": dns_records[0]['ttl']
+}
+
 response = requests.post(url, headers=headers, json=request_body)
 
 # Check the response for DNS record creation
