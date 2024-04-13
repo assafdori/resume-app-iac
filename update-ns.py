@@ -1,6 +1,14 @@
 import requests
 import json
 import boto3
+import time
+
+## Created by assafdori.com
+print("Firing up domain changes...")
+time.sleep(3)
+print("Utilizing AWS SDK...")
+time.sleep(3)
+print("Update process has begun.")
 
 # AWS Secret Manager details
 secret_name = "aws-pork-dns-ns"
@@ -46,45 +54,47 @@ else:
     print("Status Code:", response.status_code)
     print("Response:", response.json())
 
-# Retrieve ACM certificate ARN and DNS validation records
+# Wait for a few seconds for DNS propagation
+print("Hold on, waiting for records to propagate before continuing...")
+time.sleep(30)
+
+# Get ACM certificate ARN
 acm_client = boto3.client('acm')
 response = acm_client.list_certificates()
-acm_certificate_arn = response['CertificateSummaryList'][0]['CertificateArn']
-response = acm_client.describe_certificate(CertificateArn=acm_certificate_arn)
-dns_validation_options = response['Certificate']['DomainValidationOptions']
+certificate_arn = None
+for certificate in response['CertificateSummaryList']:
+    if certificate['DomainName'] == domain_name:
+        certificate_arn = certificate['CertificateArn']
+        break
 
-# Construct DNS records for Porkbun API request
-dns_records = []
-for option in dns_validation_options:
-    dns_records.append({
-        'name': option['ResourceRecord']['Name'],
-        'type': option['ResourceRecord']['Type'],
-        'content': option['ResourceRecord']['Value'],
-        'ttl': '600'
-    })
+if certificate_arn:
+    # Get DNS validation options
+    response = acm_client.describe_certificate(CertificateArn=certificate_arn)
+    validation_options = response['Certificate']['DomainValidationOptions']
+    for option in validation_options:
+        if option['ValidationMethod'] == 'DNS':
+            dns_record_name = option['ResourceRecord']['Name']
+            dns_record_value = option['ResourceRecord']['Value']
 
-# Create DNS records on Porkbun
-url = f"https://porkbun.com/api/json/v3/dns/create/{domain_name}"
-headers = {"Content-Type": "application/json"}
+            # Create CNAME record in Route 53
+            response = route53_client.change_resource_record_sets(
+                HostedZoneId=hosted_zone_id,
+                ChangeBatch={
+                    'Changes': [{
+                        'Action': 'UPSERT',
+                        'ResourceRecordSet': {
+                            'Name': dns_record_name,
+                            'Type': 'CNAME',
+                            'TTL': 300,
+                            'ResourceRecords': [{'Value': dns_record_value}]
+                        }
+                    }]
+                }
+            )
 
-# Remove domain name from the record name
-subdomain_name = dns_records[0]['name'].replace(f'.{domain_name}', '') + '.' # ADD/REMOVE, THIS CREATES THE '.' AT THE END OF VALUE
-request_body = {
-    "apikey": pork_api_key,
-    "secretapikey": pork_api_secret,
-    "name": subdomain_name,  # Use only the subdomain without the domain name, according to Porkbun.
-    "type": dns_records[0]['type'],
-    "content": dns_records[0]['content'],
-    "ttl": dns_records[0]['ttl']
-}
-
-response = requests.post(url, headers=headers, json=request_body)
-
-# Check the response for DNS record creation
-if response.status_code == 200:
-    print("DNS records created successfully.")
-    print(response.json())
+            print("CNAME record created successfully.")
+            print("DNS Record Name:", dns_record_name)
+            print("DNS Record Value:", dns_record_value)
+            break
 else:
-    print("Failed to create DNS records.")
-    print("Status Code:", response.status_code)
-    print("Response:", response.json())
+    print("ACM certificate not found for domain:", domain_name)
