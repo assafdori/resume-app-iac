@@ -24,6 +24,13 @@ resource "aws_security_group" "resume-app-security-group" {
     cidr_blocks = var.cidr_ingress_22
   }
 
+  ingress {
+    from_port   = -1
+    to_port     = -1
+    protocol    = "icmp"
+    cidr_blocks = var.cidr_ingress_icmp
+  }
+
   egress {
     from_port   = 0
     to_port     = 0

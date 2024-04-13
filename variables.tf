@@ -34,6 +34,11 @@ variable "cidr_ingress_22" {
   default     = ["0.0.0.0/0"]
 }
 
+variable "cidr_ingress_icmp" {
+  description = "Defines to which IPs are allowed to access via ICMP."
+  default     = ["0.0.0.0/0"]
+}
+
 variable "cidr_egress_ips" {
   description = "Defines to which IPs outbound traffic is allowed."
   default     = ["0.0.0.0/0"]

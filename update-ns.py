@@ -6,9 +6,6 @@ import time
 ## Created by assafdori.com
 print("Firing up domain changes...")
 time.sleep(3)
-print("Utilizing AWS SDK...")
-time.sleep(3)
-print("Update process has begun.")
 
 # AWS Secret Manager details
 secret_name = "aws-pork-dns-ns"
