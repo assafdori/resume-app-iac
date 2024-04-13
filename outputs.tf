@@ -9,3 +9,7 @@ output "dns_records" {
     root = aws_route53_record.root.fqdn
   }
 }
+
+output "acm_certificate_arn" {
+  value = aws_acm_certificate.my_certificate.arn
+}
