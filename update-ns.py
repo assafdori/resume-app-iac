@@ -51,6 +51,8 @@ else:
     print("Status Code:", response.status_code)
     print("Response:", response.json())
 
+###################### !!!!!! BELOW IS DEPRECATED !!!!!! ##################
+
 # Wait for a few seconds for DNS propagation
 # print("Hold on, waiting for records to propagate before continuing...")
 # time.sleep(30)
