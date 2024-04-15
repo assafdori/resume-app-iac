@@ -7,18 +7,10 @@ resource "aws_route53_record" "www" {
   name    = "www.${var.domain_name}"
   type    = "A"
   ttl     = "300"
-  records = [aws_instance.resume-app-ec2-instance.public_ip]
+  records = [aws_lb.resume-app-application-load-balancer.dns_name]
 }
 
 resource "aws_route53_record" "root" {
-  zone_id = aws_route53_zone.main.zone_id
-  name    = var.domain_name
-  type    = "A"
-  ttl     = "300"
-  records = [aws_instance.resume-app-ec2-instance.public_ip]
-}
-
-resource "aws_route53_record" "resume-application-load-balancer-dns" {
   zone_id = aws_route53_zone.main.zone_id
   name    = var.domain_name
   type    = "A"
