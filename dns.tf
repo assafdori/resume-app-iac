@@ -8,6 +8,8 @@ resource "aws_route53_record" "www" {
   type    = "A"
   ttl     = "300"
   records = [aws_lb.resume-app-application-load-balancer.dns_name]
+  depends_on = [aws_lb.resume-app-application-load-balancer]
+
   
 }
 
@@ -17,6 +19,8 @@ resource "aws_route53_record" "root" {
   type    = "A"
   ttl     = "300"
   records = [aws_lb.resume-app-application-load-balancer.dns_name]
+  depends_on = [aws_lb.resume-app-application-load-balancer]
+
 }
 
 resource "aws_route53_record" "example" {
