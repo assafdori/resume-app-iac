@@ -52,46 +52,46 @@ else:
     print("Response:", response.json())
 
 # Wait for a few seconds for DNS propagation
-print("Hold on, waiting for records to propagate before continuing...")
-time.sleep(30)
+# print("Hold on, waiting for records to propagate before continuing...")
+# time.sleep(30)
 
-# Get ACM certificate ARN
-acm_client = boto3.client('acm')
-response = acm_client.list_certificates()
-certificate_arn = None
-for certificate in response['CertificateSummaryList']:
-    if certificate['DomainName'] == domain_name:
-        certificate_arn = certificate['CertificateArn']
-        break
+# # Get ACM certificate ARN
+# acm_client = boto3.client('acm')
+# response = acm_client.list_certificates()
+# certificate_arn = None
+# for certificate in response['CertificateSummaryList']:
+#     if certificate['DomainName'] == domain_name:
+#         certificate_arn = certificate['CertificateArn']
+#         break
 
-if certificate_arn:
-    # Get DNS validation options
-    response = acm_client.describe_certificate(CertificateArn=certificate_arn)
-    validation_options = response['Certificate']['DomainValidationOptions']
-    for option in validation_options:
-        if option['ValidationMethod'] == 'DNS':
-            dns_record_name = option['ResourceRecord']['Name']
-            dns_record_value = option['ResourceRecord']['Value']
+# if certificate_arn:
+#     # Get DNS validation options
+#     response = acm_client.describe_certificate(CertificateArn=certificate_arn)
+#     validation_options = response['Certificate']['DomainValidationOptions']
+#     for option in validation_options:
+#         if option['ValidationMethod'] == 'DNS':
+#             dns_record_name = option['ResourceRecord']['Name']
+#             dns_record_value = option['ResourceRecord']['Value']
 
-            # Create CNAME record in Route 53
-            response = route53_client.change_resource_record_sets(
-                HostedZoneId=hosted_zone_id,
-                ChangeBatch={
-                    'Changes': [{
-                        'Action': 'UPSERT',
-                        'ResourceRecordSet': {
-                            'Name': dns_record_name,
-                            'Type': 'CNAME',
-                            'TTL': 300,
-                            'ResourceRecords': [{'Value': dns_record_value}]
-                        }
-                    }]
-                }
-            )
+#             # Create CNAME record in Route 53
+#             response = route53_client.change_resource_record_sets(
+#                 HostedZoneId=hosted_zone_id,
+#                 ChangeBatch={
+#                     'Changes': [{
+#                         'Action': 'UPSERT',
+#                         'ResourceRecordSet': {
+#                             'Name': dns_record_name,
+#                             'Type': 'CNAME',
+#                             'TTL': 300,
+#                             'ResourceRecords': [{'Value': dns_record_value}]
+#                         }
+#                     }]
+#                 }
+#             )
 
-            print("CNAME record created successfully.")
-            print("DNS Record Name:", dns_record_name)
-            print("DNS Record Value:", dns_record_value)
-            break
-else:
-    print("ACM certificate not found for domain:", domain_name)
+#             print("CNAME record created successfully.")
+#             print("DNS Record Name:", dns_record_name)
+#             print("DNS Record Value:", dns_record_value)
+#             break
+# else:
+#     print("ACM certificate not found for domain:", domain_name)
