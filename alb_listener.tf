@@ -11,4 +11,6 @@ resource "aws_lb_listener" "resume-app-application-load-balancer-listener" {
     target_group_arn = aws_lb_target_group.resume-app-application-load-balancer-target-group.arn
     type             = "forward"
   }
+
+  depends_on = [aws_acm_certificate_validation.resume-app-cert]
 }
