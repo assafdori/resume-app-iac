@@ -6,9 +6,15 @@ resource "aws_route53_record" "www" {
   zone_id = aws_route53_zone.main.zone_id
   name    = "www.${var.domain_name}"
   type    = "A"
-  ttl     = "300"
-  records = [aws_lb.resume-app-application-load-balancer.dns_name]
+  //ttl     = "300"
+ // records = [aws_lb.resume-app-application-load-balancer.dns_name]
   depends_on = [aws_lb.resume-app-application-load-balancer]
+
+    alias {
+    name                   = aws_lb.resume-app-application-load-balancer.dns_name
+    zone_id                = aws_lb.resume-app-application-load-balancer.zone_id
+    evaluate_target_health = true
+  }
 
   
 }
@@ -17,9 +23,15 @@ resource "aws_route53_record" "root" {
   zone_id = aws_route53_zone.main.zone_id
   name    = var.domain_name
   type    = "A"
-  ttl     = "300"
-  records = [aws_lb.resume-app-application-load-balancer.dns_name]
+ // ttl     = "300"
+ // records = [aws_lb.resume-app-application-load-balancer.dns_name]
   depends_on = [aws_lb.resume-app-application-load-balancer]
+
+    alias {
+    name                   = aws_lb.resume-app-application-load-balancer.dns_name
+    zone_id                = aws_lb.resume-app-application-load-balancer.zone_id
+    evaluate_target_health = true
+  }
 
 }
 
@@ -31,9 +43,6 @@ resource "aws_route53_record" "example" {
       type   = dvo.resource_record_type
     }
   }
-
-    depends_on = [aws_lb.resume-app-application-load-balancer]
-
 
   allow_overwrite = true
   name            = each.value.name
