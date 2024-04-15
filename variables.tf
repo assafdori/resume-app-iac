@@ -53,3 +53,14 @@ variable "aws_ami" {
   description = "Defines which AMI is used for the EC2 host server of web application."
   default     = "ami-07b3a3a3ddede3183"
 }
+
+variable "resume-app-application-load-balancer-name" {
+  description = "Defines the resource name for the application load balancer."
+  default = "resume-app-load-balancer"
+}
+
+variable "resume-app-application-load-balancer-target-group-name" {
+  description = "Defines the resource name for the application load balancer target group."
+  default = "resume-app-load-balancer-target"
+}
+
