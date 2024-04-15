@@ -7,7 +7,13 @@ resource "aws_route53_record" "www" {
   name    = "www.${var.domain_name}"
   type    = "A"
   ttl     = "300"
-  records = [aws_lb.resume-app-application-load-balancer.dns_name]
+  
+  alias {
+    name                   = aws_lb.resume-app-application-load-balancer.dns_name
+    zone_id                = aws_lb.resume-app-application-load-balancer.zone_id
+    evaluate_target_health = true
+  }
+
 }
 
 resource "aws_route53_record" "root" {
@@ -15,7 +21,13 @@ resource "aws_route53_record" "root" {
   name    = var.domain_name
   type    = "A"
   ttl     = "300"
-  records = [aws_lb.resume-app-application-load-balancer.dns_name]
+  
+  alias {
+    name                   = aws_lb.resume-app-application-load-balancer.dns_name
+    zone_id                = aws_lb.resume-app-application-load-balancer.zone_id
+    evaluate_target_health = true
+  }
+
 }
 
 resource "aws_route53_record" "example" {
