@@ -41,7 +41,7 @@ resource "aws_route53_record" "example" {
     }
   }
 
-  allow_overwrite = true
+  allow_overwrite = false
   name            = each.value.name
   records         = [each.value.record]
   ttl             = 60
