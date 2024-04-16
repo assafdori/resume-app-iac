@@ -3,19 +3,22 @@
 This repository holds all infrastracture related Terraform code that plans and builds the AWS infrastracture used for the <a href="https://github.com/assafdori/resume-app" target="_blank">resume web application.</a>
 
 ### Features 🌐
-- Industry best practices Terraform syntax.
-- Backend configuration that saves the state file safely within an S3 bucket.
+- Employs industry best practices in Terraform syntax.
+- Backend configuration that saves the state file remotely within an S3 bucket.
 - Variables configuration file to allow easy modification of infrastracture properties.
 - Outputting of infrastracture properties for easy debugging and reusability in other Terraform modules.
-- Included is a custom made Python script that utilizes REST API & boto3 to extract infrastracture information via AWS CLI and update name-servers on Porkbun.
+- Modules have dependencies specified on each other, ensuring seamless infrastructure provisioning.
+- Included is a custom Python script that utilizes APIs & boto3 to extract infrastracture information via AWS CLI and update name-servers on Porkbun.
 
 ### Provisioned Infrastracture 🏰
-- DNS records, including name-servers configuration against external domain providers.
+- DNS records, including name-servers configuration against external domain provider.
 - EC2 Instance (Might be migrated to ECS soon).
-- ECR Repository in case it will be preferred over Dockerhub.
+- Application Load Balancer, Listener & Target Group.
+- Amazon generated SSL Cert (ACM).
+- ECR Repository.
 - Internet gateways.
 - Routing Tables.
-- Security groups to allow 80 and 443 connections to the web application from the internet.
+- Security groups to allow HTTP&S ingress.
 - Subnets.
 - VPC.
 
