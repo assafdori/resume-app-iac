@@ -3,6 +3,11 @@ variable "domain_name" {
   default     = "assafdori.com"
 }
 
+variable "wildcard_domain_name" {
+  description = "The wild card domain name."
+  default = "*.assafdori.com"  
+}
+
 variable "instance_name" {
   description = "The EC2 instance name of the main web application."
   default     = "resume-app-server"
@@ -16,7 +21,6 @@ variable "provider_region" {
 variable "security_group_name" {
   description = "The name which the security group will be called."
   default     = "resume-app-security-group"
-
 }
 
 variable "cidr_ingress_80" {
