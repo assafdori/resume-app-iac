@@ -6,7 +6,7 @@ resource "aws_route53_record" "www" {
   zone_id = aws_route53_zone.main.zone_id
   name    = "www.${var.domain_name}"
   type    = "A"
-  //ttl     = "300"
+ // ttl     = "300"
  // records = [aws_lb.resume-app-application-load-balancer.dns_name]
   depends_on = [aws_lb.resume-app-application-load-balancer]
 
