@@ -2,6 +2,8 @@ resource "aws_acm_certificate" "resume-app-cert" {
   domain_name       = var.wildcard_domain_name
   validation_method = "DNS"
 
+  subject_alternative_names = [var.domain_name]
+
   tags = {
     Name = "resume-app-ssl-cert"
   }
