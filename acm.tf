@@ -1,5 +1,5 @@
 resource "aws_acm_certificate" "resume-app-cert" {
-  domain_name       = var.domain_name
+  domain_name       = var.wildcard_domain_name
   validation_method = "DNS"
 
   tags = {
@@ -9,5 +9,5 @@ resource "aws_acm_certificate" "resume-app-cert" {
 
 resource "aws_acm_certificate_validation" "resume-app-cert" {
   certificate_arn         = aws_acm_certificate.resume-app-cert.arn
-  validation_record_fqdns = [for record in aws_route53_record.example : record.fqdn]
+  validation_record_fqdns = [for record in aws_route53_record.cname-validation : record.fqdn]
 }
