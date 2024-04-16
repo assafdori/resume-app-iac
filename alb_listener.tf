@@ -14,3 +14,20 @@ resource "aws_lb_listener" "resume-app-application-load-balancer-listener" {
 
   depends_on = [aws_acm_certificate_validation.resume-app-cert]
 }
+
+#####
+
+resource "aws_lb_listener" "resume-app-redirect-listener" {
+  load_balancer_arn = aws_lb.resume-app-application-load-balancer.arn
+  port              = 80  # Port 80 for HTTP traffic
+  protocol          = "HTTP"
+  
+  default_action {
+    type             = "redirect"
+    redirect {
+      port           = "443"  # Redirect to port 443 for HTTPS
+      protocol       = "HTTPS"
+      status_code    = "HTTP_301"  # Permanent redirect
+    }
+  }
+}
