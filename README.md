@@ -1,4 +1,4 @@
-# Infrastracture as Code 🏗️
+# Infrastructure as Code 🏗️
 
 This repository holds all infrastracture related Terraform code that plans and builds the AWS infrastracture used for the <a href="https://github.com/assafdori/resume-app" target="_blank">resume web application.</a>
 
@@ -12,7 +12,7 @@ This repository holds all infrastracture related Terraform code that plans and b
 - Application Load Balancer & Listener that handle SSL termination and redirection.
 - Included is a custom Python script that utilizes boto3 to extract infrastracture information via AWS CLI and uses API's to update name-servers on Porkbun.
 
-### Provisioned Infrastracture 🏰
+### Provisioned Infrastructure 🏰
 - DNS records, including name-servers configuration against external domain provider.
 - EC2 Instance (Might be migrated to ECS soon).
 - Application Load Balancer, Listener & Target Group.
