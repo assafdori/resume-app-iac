@@ -25,7 +25,7 @@ This repository holds all infrastracture related Terraform code that plans and b
 - VPC.
 
 ### Infracost Report 💰
-<h4>💰 Infracost report</h4>
+
 <h4>Monthly cost will be $28 📈</h4>
 <table>
   <thead>
