@@ -9,6 +9,7 @@ This repository holds all infrastracture related Terraform code that plans and b
 - Outputting of infrastracture properties for easy debugging and reusability in other Terraform modules.
 - Modules have dependencies specified on each other, ensuring seamless infrastructure provisioning.
 - Automatic creation, validaiton and renewal of SSL certification.
+- Application Load Balancer & Listener that handle SSL termination and redirection.
 - Included is a custom Python script that utilizes boto3 to extract infrastracture information via AWS CLI and uses API's to update name-servers on Porkbun.
 
 ### Provisioned Infrastracture 🏰
