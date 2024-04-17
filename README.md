@@ -120,10 +120,10 @@ Infracost estimate: Monthly cost will increase by $28 ↑
 <summary><strong>🔴 1 failure</strong></summary>
 <br />
 <table>
-<tr><td><strong>FinOps tags</strong>: This example Tagging policy shows how you can enforce required FinOps tag keys/values in pull requests. This example checks for the tags 'Service' (can have any value) and 'Environment' (must be Dev/Stage/Prod) on all taggable resources being changed in the pull request. You can adjust it from https://dashboard.infracost.io > Governance > Tagging policies. You have a 14 day trial of this feature as it's part of Infracost Cloud.</td></tr>
+<tr><td><strong>FinOps tags</strong>: This example Tagging policy shows how you can enforce required FinOps tag keys/values in pull requests. This example checks for the tags 'Service' (can have any value) and 'Environment' (must be Dev/Stage/Prod) on all taggable resources being changed in the pull request. You can adjust it from https://dashboard.infracost.io > Governance > Tagging policies.</td></tr>
 <tr><td>
 
-aws_acm_certificate.resume-app-cert at `infracost_test.tf:5`
+aws_acm_certificate.resume-app-cert at `acm.tf:5`
 * Missing mandatory tags: `Service`, `Environment`
 
 in project `AWS`
