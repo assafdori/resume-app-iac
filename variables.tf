@@ -43,6 +43,11 @@ variable "cidr_ingress_icmp" {
   default     = ["0.0.0.0/0"]
 }
 
+variable "cidr_ingress_node_exporter" {
+  description = "Defines which IPs are allowed to access via 9100."
+  default     = ["0.0.0.0/0"]
+}
+
 variable "cidr_egress_ips" {
   description = "Defines to which IPs outbound traffic is allowed."
   default     = ["0.0.0.0/0"]
