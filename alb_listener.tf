@@ -23,7 +23,7 @@ resource "aws_lb_listener" "node-exporter-listener" {
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.resume-app-application-load-balancer-target-group.arn  # Replace with your Node Exporter target group ARN
+    target_group_arn = aws_lb_target_group.node-exporter-target-group.arn  # Replace with your Node Exporter target group ARN
   }
 }
 
