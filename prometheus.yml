@@ -1,0 +1,31 @@
+global:
+  scrape_interval: 15s
+  scrape_timeout: 10s
+  evaluation_interval: 1m
+  external_labels:
+    environment: 'production'
+    datacenter: 'us-east-1'
+
+scrape_configs:
+
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'node-exporter'
+    scheme: http
+    static_configs:
+      - targets: ['assafdori.com:9100', 'www.assafdori.com:9100']
+
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+      - alertmanager:9093
+
+rule_files:
+- alert.rules.yml
+
+
+
+
