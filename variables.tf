@@ -75,7 +75,7 @@ variable "cidr_egress_protocol" {
 
 variable "aws_ami" {
   description = "Defines which AMI is used for the EC2 host server of web application."
-  default     = "ami-00f466d8d1bed1c41"
+  default     = "ami-0e90165acf703dc49"
 }
 
 variable "resume-app-application-load-balancer-name" {
