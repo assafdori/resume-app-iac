@@ -48,6 +48,21 @@ variable "cidr_ingress_node_exporter" {
   default     = ["0.0.0.0/0"]
 }
 
+variable "cidr_ingress_prometheus" {
+  description = "Defines which IPs are allowed to access via 9100."
+  default     = ["0.0.0.0/0"]
+}
+
+variable "cidr_ingress_grafana" {
+  description = "Defines which IPs are allowed to access via 9100."
+  default     = ["0.0.0.0/0"]
+}
+
+variable "cidr_ingress_alertmanager" {
+  description = "Defines which IPs are allowed to access via 9100."
+  default     = ["0.0.0.0/0"]
+}
+
 variable "cidr_egress_ips" {
   description = "Defines to which IPs outbound traffic is allowed."
   default     = ["0.0.0.0/0"]
