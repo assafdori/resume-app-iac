@@ -18,5 +18,5 @@ receivers:
       smarthost: smtp.gmail.com:587
       auth_username: assafxdori@gmail.com
       auth_identity: assafxdori@gmail.com
-      auth_password: wfmv wpbn avhv ozvt
+      auth_password: abc123
       send_resolved: true
