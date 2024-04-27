@@ -11,7 +11,7 @@ This repository holds all infrastracture related Terraform code that plans and b
 - Automatic creation, validaiton and renewal of SSL certification.
 - Application Load Balancer & Listener that handle SSL termination and redirection.
 - HTTP traffic forwarding to HTTPS automatically.
-- Included is a custom Python script that utilizes boto3 to extract infrastracture information via AWS CLI and uses API's to update name-servers on Porkbun.
+- Included is a custom Python script that utilizes boto3 to extract infrastructure information via AWS CLI and uses API's to update name-servers on Porkbun.
 
 ### Provisioned Infrastructure 🏰
 - DNS records, including name-servers configuration against external domain provider.
