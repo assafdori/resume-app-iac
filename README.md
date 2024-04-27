@@ -5,7 +5,7 @@ This repository holds all infrastracture related Terraform code that plans and b
 ### Features 🌐
 - Employs industry best practices in Terraform syntax.
 - Backend configuration that saves the state file remotely within an S3 bucket.
-- Variables configuration file to allow easy modification of infrastracture properties.
+- Variables configuration file to allow easy modification of infrastructure properties.
 - Outputting of infrastracture properties for easy debugging and reusability in other Terraform modules.
 - Modules have dependencies specified on each other, ensuring seamless infrastructure provisioning.
 - Automatic creation, validaiton and renewal of SSL certification.
