@@ -78,6 +78,23 @@ variable "aws_ami" {
   default     = "ami-0e90165acf703dc49"
 }
 
+variable "aws_instance_type" {
+  description = "Defines which instance type is used for the EC2 host server of web application."
+  default     = "t4g.micro"
+  
+}
+
+variable "aws_key_pair" {
+  description = "Defines which key pair is used for the EC2 host server of web application."
+  default     = "ssh-key-resume-server"
+}
+
+variable "aws_vpc_name" {
+  description = "Defines which VPC is used for the EC2 host server of web application."
+  default     = "resume-app-vpc"
+  
+}
+
 variable "resume-app-application-load-balancer-name" {
   description = "Defines the resource name for the application load balancer."
   default = "resume-app-load-balancer"
@@ -88,3 +105,8 @@ variable "resume-app-application-load-balancer-target-group-name" {
   default = "resume-app-load-balancer-target"
 }
 
+variable "aws_certificate_name" {
+  description = "Defines the resource name for the certificate."
+  default = "resume-app-ssl-cert"
+  
+}

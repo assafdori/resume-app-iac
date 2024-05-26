@@ -4,6 +4,6 @@ resource "aws_vpc" "resume-app-vpc" {
   enable_dns_hostnames = true
 
   tags = {
-    Name = "resume-app-vpc"
+    Name = var.aws_vpc_name
   }
 }

@@ -5,7 +5,7 @@ resource "aws_acm_certificate" "resume-app-cert" {
   subject_alternative_names = [var.domain_name]
 
   tags = {
-    Name = "resume-app-ssl-cert"
+    Name = var.aws_certificate_name
   }
 }
 
