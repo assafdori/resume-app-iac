@@ -6,25 +6,25 @@ resource "aws_lb_target_group_attachment" "resume-app-attach-target-to-ec2" {
 
 
 resource "aws_lb_target_group_attachment" "node-exporter-attach-target-to-ec2" {
-  target_group_arn = aws_lb_target_group.node-exporter-target-group.arn  # Use the Node Exporter target group ARN
+  target_group_arn = aws_lb_target_group.node-exporter-target-group.arn  # Use Node Exporter target group ARN
   target_id        = aws_instance.resume-app-ec2-instance.id  # ID of the EC2 instance
   port             = 9100  # Port on which Node Exporter serves metrics
 }
 
 resource "aws_lb_target_group_attachment" "prometheus-attach-target-to-ec2" {
-  target_group_arn = aws_lb_target_group.prometheus-target-group.arn  # Use the Node Exporter target group ARN
+  target_group_arn = aws_lb_target_group.prometheus-target-group.arn  # Use Prometheus target group ARN
   target_id        = aws_instance.resume-app-ec2-instance.id  # ID of the EC2 instance
-  port             = 9090  # Port on which Node Exporter serves metrics
+  port             = 9090  # Port on which Prometheus operates
 }
 
 resource "aws_lb_target_group_attachment" "grafana-attach-target-to-ec2" {
-  target_group_arn = aws_lb_target_group.grafana-target-group.arn  # Use the Node Exporter target group ARN
+  target_group_arn = aws_lb_target_group.grafana-target-group.arn  # Use Grafana target group ARN
   target_id        = aws_instance.resume-app-ec2-instance.id  # ID of the EC2 instance
-  port             = 3000  # Port on which Node Exporter serves metrics
+  port             = 3000  # Port on which Grafana operates
 }
 
 resource "aws_lb_target_group_attachment" "alertmanager-attach-target-to-ec2" {
-  target_group_arn = aws_lb_target_group.alertmanager-target-group.arn  # Use the Node Exporter target group ARN
+  target_group_arn = aws_lb_target_group.alertmanager-target-group.arn  # Use Alertmanager target group ARN
   target_id        = aws_instance.resume-app-ec2-instance.id  # ID of the EC2 instance
-  port             = 9093  # Port on which Node Exporter serves metrics
+  port             = 9093  # Port on which Alertmanager operates
 }
