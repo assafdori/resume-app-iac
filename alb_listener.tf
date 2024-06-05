@@ -34,44 +34,44 @@ resource "aws_lb_listener" "resume-app-redirect-listener" {
 resource "aws_lb_listener" "node-exporter-listener" {
   load_balancer_arn = aws_lb.resume-app-application-load-balancer.arn
   port              = 9100
-  protocol          = "HTTP"  # Assuming Node Exporter serves metrics over HTTP
+  protocol          = "HTTP"
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.node-exporter-target-group.arn  # Replace with your Node Exporter target group ARN
+    target_group_arn = aws_lb_target_group.node-exporter-target-group.arn  # Node Exporter target group ARN
   }
 }
 
 resource "aws_lb_listener" "prometheus-listener" {
   load_balancer_arn = aws_lb.resume-app-application-load-balancer.arn
   port              = 9090
-  protocol          = "HTTP"  # Assuming Node Exporter serves metrics over HTTP
+  protocol          = "HTTP"
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.prometheus-target-group.arn  # Replace with your Node Exporter target group ARN
+    target_group_arn = aws_lb_target_group.prometheus-target-group.arn  # Prometheus target group ARN
   }
 }
 
 resource "aws_lb_listener" "grafana-listener" {
   load_balancer_arn = aws_lb.resume-app-application-load-balancer.arn
   port              = 3000
-  protocol          = "HTTP"  # Assuming Node Exporter serves metrics over HTTP
+  protocol          = "HTTP"
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.grafana-target-group.arn  # Replace with your Node Exporter target group ARN
+    target_group_arn = aws_lb_target_group.grafana-target-group.arn  # Grafana target group ARN
   }
 }
 
 resource "aws_lb_listener" "alertmanager-listener" {
   load_balancer_arn = aws_lb.resume-app-application-load-balancer.arn
   port              = 9093
-  protocol          = "HTTP"  # Assuming Node Exporter serves metrics over HTTP
+  protocol          = "HTTP"
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.alertmanager-target-group.arn  # Replace with your Node Exporter target group ARN
+    target_group_arn = aws_lb_target_group.alertmanager-target-group.arn  # Alertmanger target group ARN
   }
 }
 
