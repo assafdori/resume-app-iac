@@ -30,15 +30,6 @@ resource "aws_route53_record" "root" {
   }
 }
 
-resource "aws_route53_record" "status" {
-  zone_id = aws_route53_zone.main.zone_id
-  name    = "status.${var.domain_name}"
-  type    = "CNAME"
-  ttl     = 300
-  records = ["assafdori.github.io"]
-}
-
-
 resource "aws_route53_record" "cname-validation" {
   for_each = {
     for dvo in aws_acm_certificate.resume-app-cert.domain_validation_options : dvo.domain_name => {
@@ -54,4 +45,20 @@ resource "aws_route53_record" "cname-validation" {
   ttl             = 60
   type            = each.value.type
   zone_id         = aws_route53_zone.main.zone_id
+}
+
+resource "aws_route53_record" "status" {
+  zone_id = aws_route53_zone.main.zone_id
+  name    = "status.${var.domain_name}"
+  type    = "CNAME"
+  ttl     = 300
+  records = ["assafdori.github.io"]
+}
+
+resource "aws_route53_record" "dotfiles" {
+  zone_id = aws_route53_zone.main.zone_id
+  name    = "dotfiles.${var.domain_name}"
+  type    = "CNAME"
+  ttl     = 300
+  records = ["github.com/assafdori/dotfiles"]
 }
