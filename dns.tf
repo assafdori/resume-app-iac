@@ -35,7 +35,7 @@ resource "aws_route53_record" "status" {
   name    = "status.${var.domain_name}"
   type    = "CNAME"
   ttl     = 300
-  records = ["assafdori.github.io/up"]
+  records = ["assafdori.github.io"]
 }
 
 
