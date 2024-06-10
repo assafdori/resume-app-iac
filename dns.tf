@@ -60,5 +60,5 @@ resource "aws_route53_record" "dotfiles" {
   name    = "dotfiles.${var.domain_name}"
   type    = "CNAME"
   ttl     = 300
-  records = ["github.com/assafdori/dotfiles"]
+  records = ["assafdori.github.io"]
 }
