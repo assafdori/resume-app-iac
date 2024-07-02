@@ -19,5 +19,4 @@ resource "aws_subnet" "resume-app-public-subnet2" {
   tags = {
     Name = "${var.environment}-${var.aws_public_subnet_name2}"
   }
-
 }

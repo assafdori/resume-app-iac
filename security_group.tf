@@ -66,4 +66,8 @@ resource "aws_security_group" "resume-app-security-group" {
     protocol    = var.cidr_egress_protocol
     cidr_blocks = var.cidr_egress_ips
   }
+
+  tags = {
+    Name = "${var.environment}-${var.security_group_name}"
+  }
 }

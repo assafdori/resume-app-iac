@@ -6,6 +6,6 @@ resource "aws_instance" "resume-app-ec2-instance" {
   key_name        = var.aws_key_pair
 
   tags = {
-    Name = var.instance_name
+    Name = "${var.environment}-${var.instance_name}"
   }
 }

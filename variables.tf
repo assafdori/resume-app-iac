@@ -126,8 +126,12 @@ variable "aws_public_subnet_name2" {
   default = "public-subnet2"
 }
 
+variable "ecr_repository_name" {
+  description = "Defines the resource name for the ecr repository."
+  default = "resume-app-ecr-repo"
+}
 
-
-
-
-
+variable "aws_internet_gateway_name" {
+  description = "Defines the resource name for the internet gateway."
+  default = "resume-app-igw"
+}
