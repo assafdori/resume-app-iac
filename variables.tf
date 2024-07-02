@@ -3,6 +3,11 @@ variable "domain_name" {
   default     = "assafdori.com"
 }
 
+variable "environment" {
+  description = "The environment in which to deploy, production or development."
+  default     = "production"
+}
+
 variable "wildcard_domain_name" {
   description = "The wild card domain name."
   default = "*.assafdori.com"  
@@ -97,7 +102,7 @@ variable "aws_vpc_name" {
 
 variable "resume-app-application-load-balancer-name" {
   description = "Defines the resource name for the application load balancer."
-  default = "resume-app-load-balancer"
+  default = "loadbalancer"
 }
 
 variable "resume-app-application-load-balancer-target-group-name" {
@@ -110,3 +115,19 @@ variable "aws_certificate_name" {
   default = "resume-app-ssl-cert"
   
 }
+
+variable "aws_public_subnet_name" {
+  description = "Defines the resource name for the public subnet."
+  default = "public-subnet"
+}
+
+variable "aws_public_subnet_name2" {
+  description = "Defines the resource name for the public subnet."
+  default = "public-subnet2"
+}
+
+
+
+
+
+

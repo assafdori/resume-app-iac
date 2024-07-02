@@ -1,5 +1,5 @@
 resource "aws_lb" "resume-app-application-load-balancer" {
-  name               = var.resume-app-application-load-balancer-name
+  name               = "${var.environment}-${var.resume-app-application-load-balancer-name}"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.resume-app-security-group.id]
