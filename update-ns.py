@@ -38,7 +38,7 @@ request_body = {
 }
 
 # Update name servers on Porkbun
-url = f"https://porkbun.com/api/json/v3/domain/updateNs/{domain_name}"
+url = f"https://api.porkbun.com/api/json/v3/domain/updateNs/{domain_name}"
 headers = {"Content-Type": "application/json"}
 response = requests.post(url, headers=headers, json=request_body)
 
